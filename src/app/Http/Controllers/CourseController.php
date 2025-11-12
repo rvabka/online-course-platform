@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -29,7 +30,7 @@ class CourseController extends Controller
         $course->load(['instructor', 'lessons']);
 
         // Sprawdź, czy użytkownik jest zapisany
-        $isEnrolled = auth()->check() && auth()->user()->isEnrolledIn($course);
+        $isEnrolled = Auth::check() && Auth::user()->isEnrolledIn($course);
 
         return Inertia::render('Courses/Show', [
             'course' => $course,
@@ -40,7 +41,7 @@ class CourseController extends Controller
     // Zapisz użytkownika na kurs
     public function enroll(Course $course)
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
         // Sprawdź, czy już zapisany
         if ($user->isEnrolledIn($course)) {

@@ -19,6 +19,7 @@
         "vue": "^3.4.0"
     },
     "dependencies": {
-        "@vitejs/plugin-vue": "^6.0.1"
+        "@vitejs/plugin-vue": "^6.0.1",
+        "ziggy-js": "^2.6.0"
     }
 }

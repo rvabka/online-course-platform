@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\RedirectResponse;
@@ -41,9 +40,10 @@ class CourseController extends Controller
             'duration_hours' => 'required|integer|min:1',
             'level' => 'required|in:beginner,intermediate,advanced',
         ]);
+
         $course = Course::create([
             ...$validated,
-            'instructor_id' => Auth::id(), // ID zalogowanego użytkownika
+            'instructor_id' => auth()->id(), // ID zalogowanego użytkownika
             'is_published' => false, // Domyślnie nieopublikowany
         ]);
 
