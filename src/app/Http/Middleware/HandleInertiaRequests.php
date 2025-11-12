@@ -34,10 +34,6 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
-            'ziggy' => fn () => [
-                ...\Illuminate\Support\Facades\Route::current()->parameters(),
-                'location' => $request->url(),
-            ],
         ];
     }
 }
