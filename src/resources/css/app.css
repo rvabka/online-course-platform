@@ -1,3 +1,647 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --vt-c-white: #ffffff;
+    --vt-c-white-soft: #f8f8f8;
+    --vt-c-white-mute: #f2f2f2;
+
+    --vt-c-black: #181818;
+    --vt-c-black-soft: #222222;
+    --vt-c-black-mute: #282828;
+
+    --vt-c-indigo: #2c3e50;
+
+    --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
+    --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
+    --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
+    --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
+
+    --vt-c-text-light-1: var(--vt-c-indigo);
+    --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
+    --vt-c-text-dark-1: var(--vt-c-white);
+    --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+}
+
+:root {
+    --color-background: var(--vt-c-white);
+    --color-background-soft: var(--vt-c-white-soft);
+    --color-background-mute: var(--vt-c-white-mute);
+
+    --color-border: var(--vt-c-divider-light-2);
+    --color-border-hover: var(--vt-c-divider-light-1);
+
+    --color-heading: var(--vt-c-text-light-1);
+    --color-text: var(--vt-c-text-light-1);
+
+    --section-gap: 160px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    font-weight: normal;
+}
+
+body {
+    min-height: 100vh;
+    color: var(--color-text);
+    background: var(--color-background);
+    transition: color 0.5s, background-color 0.5s;
+    line-height: 1.6;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+        sans-serif;
+    font-size: 15px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+    font-family: "MyFont";
+    src: url("/fonts/cloud.otf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "lufga";
+    src: url("/fonts/lufgam.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+.SiteContainer {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header Styles */
+#header {
+    background-color: #f8f9fa;
+    height: 7vh;
+    min-height: 60px;
+    position: relative;
+    z-index: 1000;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+#header .header-logo img {
+    height: 7vh;
+    min-height: 50px;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+#header-nav {
+    width: auto;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+#header-nav a {
+    text-decoration: none;
+    color: rgb(95, 94, 94);
+    font-family: "lufga", sans-serif;
+    font-size: clamp(0.9rem, 1.1vw, 1.2rem);
+    font-weight: 400;
+    transition: all 0.5s ease;
+}
+#header-nav a:hover {
+    color: rgb(0, 0, 0);
+}
+#header-login {
+    position: absolute;
+    right: 10px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: clamp(1rem, 3vw, 4rem);
+    justify-content: center;
+    align-items: center;
+}
+#header-login a {
+    text-decoration: none;
+    color: rgb(78, 78, 78);
+    font-family: "lufga", sans-serif;
+    font-size: clamp(0.9rem, 1.1vw, 1.2rem);
+    transition: all 0.5s ease;
+}
+#header-login a:hover {
+    color: rgb(0, 0, 0);
+}
+#login-btn {
+    height: 60%;
+    min-height: 35px;
+    width: clamp(80px, 6vw, 120px);
+    border-radius: 20px;
+    font-family: "MyFont", sans-serif;
+    font-size: clamp(0.8rem, 1vw, 1.1rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: 600;
+    background-color: #2ac676;
+    border: 1px solid black;
+    letter-spacing: 1px;
+    box-shadow: 0.25rem 0.25rem 0 0 rgba(0, 0, 0, 1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+#login-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 0.5rem 0.5rem 0 0 rgba(0, 0, 0, 1);
+}
+
+/* Middle Container */
+.middleContainer {
+    margin-top: 50px;
+    min-height: calc(100vh - 7vh - 50px);
+    display: grid;
+    grid-template-columns: minmax(300px, 1fr) minmax(400px, 1.2fr) minmax(200px, 250px);
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "left middle right"
+        "left courses right";
+    gap: 20px;
+    position: relative;
+    padding: 20px clamp(20px, 5vw, 80px);
+}
+
+/* Left Side */
+.leftSideContainer {
+    grid-area: left;
+    position: relative;
+    display: flex;
+    width: 100%;
+    max-width: 600px;
+    height: fit-content;
+    justify-content: flex-start;
+    padding: 20px;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.middleText {
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    font-family: "lufga";
+    font-size: clamp(2.5rem, 5.5vw, 5rem);
+    padding: 0;
+    font-weight: bold;
+}
+.middleText p {
+    margin: 0;
+    line-height: 1.1;
+}
+
+.spacer {
+    height: clamp(50px, 7vh, 80px);
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    align-self: flex-start;
+    flex-direction: row;
+    gap: 5px;
+}
+.spacer1, .spacer5 {
+    height: 60%;
+    width: 30%;
+    background-color: rgb(0, 0, 0);
+    border-radius: 15px;
+}
+.spacer2, .spacer4 {
+    height: 55%;
+    width: 15%;
+    background-color: #2ac676;
+    border-radius: 15px;
+}
+.spacer3 {
+    height: 50%;
+    width: 6%;
+    background-color: rgb(0, 0, 0);
+    border-radius: 15px;
+}
+
+.leftSideLittleText {
+    position: relative;
+    display: flex;
+    width: 100%;
+    font-family: "lufga";
+    color: rgb(60, 60, 60);
+    font-weight: 400;
+    font-size: clamp(0.9rem, 1.1vw, 1.2rem);
+    line-height: 1.6;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.leftSideLittleTextWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1.5rem;
+}
+
+.leftSideLittleTextH3Wrapper h3 {
+    font-weight: 400;
+    line-height: 1.6;
+    color: rgb(60, 60, 60);
+}
+
+.leftSideButtonContainer {
+    margin-top: 1rem;
+}
+
+.leftSideButton {
+    height: 50px;
+    width: clamp(150px, 12vw, 200px);
+    border: 1px solid black;
+    background-color: #2ac676;
+    border-radius: 20px;
+    font-family: "lufga";
+    font-size: clamp(0.9rem, 1vw, 1.1rem);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0.25rem 0.25rem 0 0 rgba(0, 0, 0, 1);
+    text-decoration: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.leftSideButton:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 0.5rem 0.5rem 0 0 rgba(0, 0, 0, 1);
+}
+
+.leftSideNumbers {
+    display: flex;
+    gap: clamp(2rem, 5vw, 4rem);
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.leftSideCustomers,
+.leftSideCourses {
+    font-size: clamp(1rem, 1.2vw, 1.5rem);
+}
+
+.leftSideCustomers h1,
+.leftSideCourses h1 {
+    font-size: clamp(2rem, 3vw, 3.5rem);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.leftSideCustomers p,
+.leftSideCourses p {
+    color: rgb(95, 94, 94);
+}
+
+/* Middle Image */
+.middleImg {
+    grid-area: middle;
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding-right: 50px;
+}
+
+.middleImg img {
+    height: clamp(350px, 65vh, 650px);
+    object-fit: contain;
+    width: 100%;
+    max-width: 550px;
+}
+
+.middleImgBox {
+    position: absolute;
+    bottom: 20%;
+    right: -30px;
+    border: 2px solid rgb(0, 0, 0);
+    min-height: 150px;
+    width: clamp(220px, 20vw, 300px);
+    padding: 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0.15rem 0.15rem 0 0 rgba(0, 0, 0, 1);
+    background-color: white;
+    transform: rotate(-1.5deg);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    z-index: 10;
+}
+.middleImgBox:hover {
+    transform: translate(-2px, -2px) rotate(0deg);
+    box-shadow: 0.5rem 0.5rem 0 0 rgba(0, 0, 0, 1);
+}
+
+.middleImgBoxHeader {
+    width: 100%;
+    font-size: clamp(0.8rem, 0.95vw, 1.1rem);
+    padding: 5px;
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-family: "lufga";
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+.middleImgBoxIconContainer {
+    height: 50px;
+    width: 50px;
+    min-width: 50px;
+    display: flex;
+    border-radius: 100px;
+    border: 1px solid rgb(0, 0, 0);
+    background-color: yellow;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0.25rem 0.25rem 0 0 rgba(0, 0, 0, 1);
+}
+
+.middleImgBoxText {
+    display: flex;
+    justify-content: center;
+    text-align: left;
+    align-items: center;
+}
+
+.middleImgBoxLittleText {
+    font-family: "lufga";
+    font-size: clamp(0.75rem, 0.85vw, 1rem);
+    text-align: left;
+    color: rgb(95, 94, 94);
+    line-height: 1.4;
+}
+
+/* Middle Right Courses - Prawy dolny róg */
+.middleRightCourses {
+    grid-area: courses;
+    position: relative;
+    width: 100%;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+    align-self: end;
+    justify-self: start;
+    margin-left: -30px;
+}
+
+.middleRightCoursesText {
+    font-family: "lufga";
+    font-size: clamp(0.95rem, 1.25vw, 1.4rem);
+    font-weight: normal;
+}
+
+.middleRightCoursesIcons {
+    display: flex;
+    gap: 15px;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.Icon1Container,
+.Icon2Container,
+.Icon3Container,
+.Icon4Container {
+    height: 50px;
+    width: 50px;
+    border-radius: 100px;
+    border: 1px solid rgb(0, 0, 0);
+    background-color: rgb(253, 253, 253);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0.25rem 0.25rem 0 0 rgba(0, 0, 0, 1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.Icon1Container:hover,
+.Icon2Container:hover,
+.Icon3Container:hover,
+.Icon4Container:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 0.5rem 0.5rem 0 0 rgba(0, 0, 0, 1);
+}
+
+/* Right Side Buttons */
+.middleRight {
+    grid-area: right;
+    position: relative;
+    min-height: 300px;
+    width: 100%;
+    max-width: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding-top: 20px;
+}
+
+.pielegniarstwo-btn,
+.stomatologia-btn,
+.medycyna-btn,
+.farmacja-btn {
+    border: 1px solid black;
+    border-radius: 25px;
+    font-family: "lufga";
+    font-weight: 400;
+    font-size: clamp(0.85rem, 1.05vw, 1.15rem);
+    height: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0.15rem 0.15rem 0 0 rgba(0, 0, 0, 1);
+}
+
+.pielegniarstwo-btn {
+    align-self: flex-start;
+    width: 100%;
+    max-width: 190px;
+    background-color: yellow;
+}
+
+.stomatologia-btn {
+    align-self: flex-start;
+    margin-left: 35px;
+    width: 100%;
+    max-width: 190px;
+    background-color: white;
+}
+
+.medycyna-btn {
+    width: 100%;
+    max-width: 170px;
+    background-color: white;
+}
+
+.farmacja-btn {
+    align-self: center;
+    width: 100%;
+    max-width: 150px;
+    background-color: white;
+}
+
+.pielegniarstwo-btn:hover,
+.farmacja-btn:hover,
+.medycyna-btn:hover,
+.stomatologia-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 0.5rem 0.5rem 0 0 rgba(0, 0, 0, 1);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 1200px) {
+    .middleContainer {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-template-areas:
+            "left"
+            "middle"
+            "courses"
+            "right";
+        padding: 20px;
+    }
+
+    .leftSideContainer {
+        max-width: 100%;
+        align-items: center;
+        text-align: center;
+        padding: 20px 10px;
+    }
+
+    .middleText {
+        text-align: center;
+    }
+
+    .spacer {
+        align-self: center;
+    }
+
+    .leftSideLittleText {
+        text-align: center;
+        align-items: center;
+    }
+
+    .leftSideNumbers {
+        justify-content: center;
+    }
+
+    .middleImg {
+        width: 100%;
+        margin: 2rem auto;
+        max-width: 600px;
+        align-items: center;
+        padding-right: 0;
+    }
+
+    .middleImgBox {
+        bottom: 15%;
+        right: 5%;
+        width: 240px;
+    }
+
+    .middleRightCourses {
+        width: 100%;
+        max-width: 450px;
+        margin: 2rem auto 0;
+        align-items: center;
+        text-align: center;
+        justify-self: center;
+        align-self: start;
+    }
+
+    .middleRightCoursesIcons {
+        justify-content: center;
+    }
+
+    .middleRight {
+        max-width: 100%;
+        width: 90%;
+        margin: 2rem auto;
+        align-items: center;
+    }
+
+    .pielegniarstwo-btn,
+    .stomatologia-btn {
+        align-self: center;
+        margin-left: 0;
+        max-width: 250px;
+    }
+
+    .medycyna-btn,
+    .farmacja-btn {
+        max-width: 220px;
+    }
+}
+
+@media (max-width: 768px) {
+    #header-nav {
+        display: none;
+    }
+
+    #header-login {
+        position: static;
+        width: auto;
+        gap: 1rem;
+    }
+
+    .middleText {
+        font-size: 2.8rem;
+    }
+
+    .leftSideLittleTextH3Wrapper h3 br {
+        display: none;
+    }
+
+    .middleImgBoxLittleText p br {
+        display: none;
+    }
+
+    .middleRightCoursesText p br {
+        display: none;
+    }
+
+    .middleImgBox {
+        width: 200px;
+        bottom: 10%;
+        right: 2%;
+    }
+
+    .middleRightCourses {
+        padding: 15px;
+    }
+}
